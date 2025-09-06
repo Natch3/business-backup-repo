@@ -1,0 +1,357 @@
+<script setup lang="ts">
+import { defineAsyncComponent } from 'vue';
+import { type BreadcrumbItem } from '@/types';
+import { Head } from '@inertiajs/vue3';
+import PlaceholderPattern from '@/components/PlaceholderPattern.vue'; // This now includes the Tailwind loader
+
+// Lazy-load the layout to enable suspense loading
+const AppLayout = defineAsyncComponent(() => import('@/layouts/admincontrol/AppLayout.vue'));
+
+const breadcrumbs: BreadcrumbItem[] = [
+  {
+    title: 'Dashboard',
+    href: '/admincontrol/dashboard',
+  },
+];
+
+
+const props = defineProps<{
+  totalUsers: number; 
+    totalPending: number; 
+      totalApproved: number; 
+        totalRejected: number; 
+}>();
+</script>
+<template>
+  <Head title="Dashboard" />
+  <Suspense>
+    <template #default>
+         <AppLayout :breadcrumbs="breadcrumbs">
+  <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
+          <!-- <div class="grid auto-rows-min gap-4 md:grid-cols-3">
+                <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
+                    <PlaceholderPattern />
+                </div>
+                <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
+                    <PlaceholderPattern />
+                </div>
+                <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
+                    <PlaceholderPattern />
+                </div>
+            </div> -->
+          <!-- <div class="w-full lg:ps-64"> -->
+          <div class="p-4 sm:p-6 space-y-4 sm:space-y-6">
+            <!-- Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+              <!-- Card -->
+             <div class="flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-900 dark:border-neutral-800">
+      <div class="p-4 md:p-5 flex gap-x-4">
+        <div class="shrink-0 flex justify-center items-center size-11 bg-gray-100 rounded-lg dark:bg-neutral-800">
+          <svg class="shrink-0 size-5 text-gray-600 dark:text-neutral-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+
+        <div class="grow">
+          <div class="flex items-center gap-x-2">
+            <p class="text-xs uppercase text-gray-500 dark:text-neutral-500">
+              Total users
+            </p>
+            <div class="hs-tooltip">
+              <div class="hs-tooltip-toggle">
+                <svg class="shrink-0 size-4 text-gray-500 dark:text-neutral-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+                <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-md shadow-2xs dark:bg-neutral-700" role="tooltip">
+                  The number of daily users
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="mt-1 flex items-center gap-x-2">
+            <h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-neutral-200">
+     {{ totalUsers }}
+            </h3>
+            <span class="inline-flex items-center gap-x-1 py-0.5 px-2 rounded-full bg-green-100 text-green-900 dark:bg-green-800 dark:text-green-100">
+              <svg class="inline-block size-4 self-center" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+              <span class="inline-block text-xs font-medium">
+                12.5%
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+              <!-- End Card -->
+
+              <!-- Card -->
+            <div class="flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-900 dark:border-neutral-800">
+      <div class="p-4 md:p-5 flex gap-x-4">
+  <div class="shrink-0 flex justify-center items-center size-11 bg-gray-100 rounded-lg dark:bg-neutral-800">
+  <svg class="shrink-0 size-5 text-green-500 dark:text-green-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10" />
+    <path d="M9 12l2 2l4-4" />
+  </svg>
+</div>
+
+
+        <div class="grow">
+          <div class="flex items-center gap-x-2">
+            <p class="text-xs uppercase text-gray-500 dark:text-neutral-500">
+              Total Approved Branches
+            </p>
+            <div class="hs-tooltip">
+              <div class="hs-tooltip-toggle">
+                <svg class="shrink-0 size-4 text-gray-500 dark:text-neutral-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+
+              </div>
+            </div>
+          </div>
+          <div class="mt-1 flex items-center gap-x-2">
+            <h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-neutral-200">
+     {{ totalApproved }}
+            </h3>
+            <span class="inline-flex items-center gap-x-1 py-0.5 px-2 rounded-full bg-green-100 text-green-900 dark:bg-green-800 dark:text-green-100">
+              <svg class="inline-block size-4 self-center" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+              <span class="inline-block text-xs font-medium">
+                12.5%
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+            <div class="flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-900 dark:border-neutral-800">
+      <div class="p-4 md:p-5 flex gap-x-4">
+<div class="shrink-0 flex justify-center items-center size-11 bg-gray-100 rounded-lg dark:bg-neutral-800">
+  <svg class="shrink-0 size-5 text-yellow-500 dark:text-yellow-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10" />
+    <polyline points="12 6 12 12 16 14" />
+  </svg>
+</div>
+
+
+        <div class="grow">
+          <div class="flex items-center gap-x-2">
+            <p class="text-xs uppercase text-gray-500 dark:text-neutral-500">
+              Total Pending Branches
+            </p>
+            <div class="hs-tooltip">
+              <div class="hs-tooltip-toggle">
+                <svg class="shrink-0 size-4 text-gray-500 dark:text-neutral-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+
+              </div>
+            </div>
+          </div>
+          <div class="mt-1 flex items-center gap-x-2">
+            <h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-neutral-200">
+     {{ totalPending }}
+            </h3>
+            <span class="inline-flex items-center gap-x-1 py-0.5 px-2 rounded-full bg-green-100 text-green-900 dark:bg-green-800 dark:text-green-100">
+              <svg class="inline-block size-4 self-center" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+              <span class="inline-block text-xs font-medium">
+                12.5%
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+            <div class="flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-900 dark:border-neutral-800">
+      <div class="p-4 md:p-5 flex gap-x-4">
+<div class="shrink-0 flex justify-center items-center size-11 bg-gray-100 rounded-lg dark:bg-neutral-800">
+  <svg class="shrink-0 size-5 text-red-500 dark:text-red-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10" />
+    <line x1="15" y1="9" x2="9" y2="15" />
+    <line x1="9" y1="9" x2="15" y2="15" />
+  </svg>
+</div>
+
+
+        <div class="grow">
+          <div class="flex items-center gap-x-2">
+            <p class="text-xs uppercase text-gray-500 dark:text-neutral-500">
+              Total Rejected Branches 
+            </p>
+            <div class="hs-tooltip">
+              <div class="hs-tooltip-toggle">
+                <svg class="shrink-0 size-4 text-gray-500 dark:text-neutral-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+                <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-md shadow-2xs dark:bg-neutral-700" role="tooltip">
+                  The number of daily Rejected Branches
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="mt-1 flex items-center gap-x-2">
+            <h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-neutral-200">
+     {{ totalRejected }}
+            </h3>
+            <span class="inline-flex items-center gap-x-1 py-0.5 px-2 rounded-full bg-green-100 text-green-900 dark:bg-green-800 dark:text-green-100">
+              <svg class="inline-block size-4 self-center" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+              <span class="inline-block text-xs font-medium">
+                12.5%
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+              <!-- End Card -->
+
+              <!-- Card -->
+              <div
+                class="flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-800 dark:border-neutral-700"
+              >
+                <div class="p-4 md:p-5">
+                  <div class="flex items-center gap-x-2">
+                    <p class="text-xs uppercase text-gray-500 dark:text-neutral-500">
+                      Avg. Click Rate
+                    </p>
+                  </div>
+
+                  <div class="mt-1 flex items-center gap-x-2">
+                    <h3
+                      class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-neutral-200"
+                    >
+                      56.8%
+                    </h3>
+                    <span class="flex items-center gap-x-1 text-red-600">
+                      <svg
+                        class="inline-block size-4 self-center"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <polyline points="22 17 13.5 8.5 8.5 13.5 2 7" />
+                        <polyline points="16 17 22 17 22 11" />
+                      </svg>
+                      <span class="inline-block text-sm"> 1.7% </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <!-- End Card -->
+
+              <!-- Card -->
+              <div
+                class="flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-800 dark:border-neutral-700"
+              >
+                <div class="p-4 md:p-5">
+                  <div class="flex items-center gap-x-2">
+                    <p class="text-xs uppercase text-gray-500 dark:text-neutral-500">
+                      Pageviews
+                    </p>
+                  </div>
+
+                  <div class="mt-1 flex items-center gap-x-2">
+                    <h3
+                      class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-neutral-200"
+                    >
+                      92,913
+                    </h3>
+                  </div>
+                </div>
+              </div>
+              <!-- End Card -->
+            </div>
+            <!-- End Grid -->
+
+            <div class="grid lg:grid-cols-2 gap-4 sm:gap-6">
+              <!-- Card -->
+           <!-- Card -->
+<div class="p-4 md:p-5 min-h-102.5 flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-800 dark:border-neutral-700">
+  <!-- Header -->
+  <div class="flex flex-wrap justify-between items-center gap-2">
+    <div>
+      <h2 class="text-sm text-gray-500 dark:text-neutral-500">
+        Income
+      </h2>
+      <p class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-neutral-200">
+        $126,238.49
+      </p>
+    </div>
+
+    <div>
+      <span class="py-[5px] px-1.5 inline-flex items-center gap-x-1 text-xs font-medium rounded-md bg-teal-100 text-teal-800 dark:bg-teal-500/10 dark:text-teal-500">
+        <svg class="inline-block size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+        25%
+      </span>
+    </div>
+  </div>
+  <!-- End Header -->
+
+  <VisitorsChart />
+</div>
+<!-- End Card -->
+              <!-- End Card -->
+
+              <!-- Card -->
+              <div
+                class="p-4 md:p-5 min-h-102.5 flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-800 dark:border-neutral-700"
+              >
+                <!-- Header -->
+                <div class="flex flex-wrap justify-between items-center gap-2">
+                  <div>
+                    <h2 class="text-sm text-gray-500 dark:text-neutral-500">Visitors</h2>
+                    <p
+                      class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-neutral-200"
+                    >
+                      80.3k
+                    </p>
+                  </div>
+
+                  <div>
+                    <span
+                      class="py-[5px] px-1.5 inline-flex items-center gap-x-1 text-xs font-medium rounded-md bg-red-100 text-red-800 dark:bg-red-500/10 dark:text-red-500"
+                    >
+                      <svg
+                        class="inline-block size-3.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M12 5v14" />
+                        <path d="m19 12-7 7-7-7" />
+                      </svg>
+                      2%
+                    </span>
+                  </div>
+                </div>
+                <!-- End Header -->
+
+              <BarChart />
+              </div>
+            </div>
+            <!-- End Card -->
+          </div>
+          <!-- <div
+        class="relative min-h-[100vh] flex-1 rounded-xl border border-sidebar-border/70 dark:border-sidebar-border md:min-h-min"
+      >
+        <PlaceholderPattern />
+      </div> -->
+        </div>
+         </AppLayout>
+
+
+
+        </template>
+      <template #fallback>
+         <PlaceholderPattern />
+      
+    </template>
+  </Suspense>
+</template>

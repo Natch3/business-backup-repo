@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('purchase_retail_items', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('purchase_id');
+            $table->unsignedBigInteger('product_id')->nullable();
+            $table->string('product_name');
+            $table->decimal('product_price', 10, 2);
+            $table->integer('quantity')->default(1);
+            $table->decimal('subtotal', 10, 2);
+            $table->timestamps();
+
+            $table->foreign('purchase_id')
+                ->references('id')->on('purchase_retail')
+                ->onDelete('cascade');
+        });
+    }
+
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('purchase_retail_items', function (Blueprint $table) {
+            $table->dropForeign(['purchase_id']);});
+        Schema::dropIfExists('purchase_retail_items');
+    }
+};
